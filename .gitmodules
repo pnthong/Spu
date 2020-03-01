@@ -1,0 +1,3 @@
+[submodule "Spu/external/spdlog"]
+	path = Spu/external/spdlog
+	url = https://github.com/gabime/spdlog

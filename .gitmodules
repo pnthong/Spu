@@ -7,3 +7,6 @@
 [submodule "Spu/external/imgui"]
 	path = Spu/external/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Spu/external/glm"]
+	path = Spu/external/glm
+	url = https://github.com/g-truc/glm

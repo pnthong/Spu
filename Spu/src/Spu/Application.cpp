@@ -19,6 +19,9 @@ namespace Spu {
 
 		mWindow = std::unique_ptr<Window>(Window::Create());
 		mWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		mImGuiLayer = new ImGuiLayer();
+		PushOverlay(mImGuiLayer);
 	}
 
 	Application::~Application() {}
@@ -53,6 +56,12 @@ namespace Spu {
 			for (Layer* layer : mLayerStack) {
 				layer->OnUpdate();
 			}
+
+			mImGuiLayer->Begin();
+				for (Layer* layer : mLayerStack) {
+					layer->OnImGuiRender();
+				}
+			mImGuiLayer->End();
 
 			mWindow->OnUpdate();
 		}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "supch.h"
 #include "Core.h"
 #include "Events/Event.h"
 
@@ -11,15 +12,14 @@ namespace Spu {
 		WindowProps(const std::string& title = "Spu Engine",
 					uint w = 1280, 
 					uint h = 720)
-			: Title(title), Width(w), Height(h) {
-		}
+			: Title(title), Width(w), Height(h) {}
 	};
 
 	class SPU_API Window {
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 
-		virtual ~Window() {};
+		virtual ~Window() {}
 
 		virtual void OnUpdate() = 0;
 

@@ -5,6 +5,8 @@
 #include "Spu/LayerStack.h"
 #include "Spu/Events/ApplicationEvent.h"
 
+#include "Spu/ImGui/ImGuiLayer.h"
+
 namespace Spu {
 	class SPU_API Application
 	{
@@ -28,6 +30,7 @@ namespace Spu {
 	private:
 		static Application* sInstance;
 
+		ImGuiLayer* mImGuiLayer;
 		std::unique_ptr<Window> mWindow;
 		bool mRunning = true;
 		LayerStack mLayerStack;

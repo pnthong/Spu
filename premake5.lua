@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Spu/external/GLFW/include"
 IncludeDir["Glad"] = "Spu/external/Glad/include"
 IncludeDir["ImGui"] = "Spu/external/imgui"
+IncludeDir["glm"] = "Spu/external/glm"
 
 include "Spu/external/GLFW"
 include "Spu/external/Glad"
@@ -44,6 +45,8 @@ project "Spu"
     {
         "%{prj.name}/src/**.h",        
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/external/glm/glm/**.hpp",
+        "%{prj.name}/external/glm/glm/**.inl"
     }
 
     includedirs
@@ -52,7 +55,8 @@ project "Spu"
         "%{prj.name}/external/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -105,7 +109,9 @@ project "SandBox"
     includedirs
     {
         "Spu/external/spdlog/include",
-        "Spu/src"
+        "Spu/src",
+        "Spu/external",
+        "%{IncludeDir.glm}"
     }
 
     links {

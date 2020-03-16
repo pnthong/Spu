@@ -1,15 +1,24 @@
 #include <Spu.h>
 
+//#include "imgui/imgui.h"
+
 class ExLayer : public Spu::Layer {
 public:
 	ExLayer() 
-		: Layer("Example") {}
+		: Layer("Example") {
+	}
 
 	void OnUpdate() override {
 		if (Spu::Input::IsKeyPressed(SU_KEY_TAB)) {
 			SU_TRACE("Tab key is pressed (poll)!");
 		}
 	}
+
+	/*virtual void OnImGuiRender() override {
+		ImGui::Begin("Test");
+		ImGui::Text("StevenPu");
+		ImGui::End();
+	}*/
 
 	void OnEvent(Spu::Event& e) override {
 		if (e.GetEventType() == Spu::EventType::KeyPressed) {
@@ -27,7 +36,7 @@ class Sandbox: public Spu::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExLayer());
-		PushOverlay(new Spu::ImGuiLayer());
+		//PushOverlay(new Spu::ImGuiLayer());
 	};
 	~Sandbox() {};
 };

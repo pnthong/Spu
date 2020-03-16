@@ -1,7 +1,7 @@
 #pragma once
 #include "Core.h"
 #include "spdlog/spdlog.h"
-#include <memory>
+#include "spdlog/fmt/ostr.h"
 
 namespace Spu {
 	class SPU_API Logger
@@ -9,11 +9,11 @@ namespace Spu {
 	public:
 		static void Init();
 
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() {
+		static std::shared_ptr<spdlog::logger>& GetCoreLogger() {
 			return s_CoreLogger;
 		}
 
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() {
+		static std::shared_ptr<spdlog::logger>& GetClientLogger() {
 			return s_ClientLogger;
 		}
 
@@ -23,54 +23,14 @@ namespace Spu {
 	};
 }
 
-// for the engine
-template<typename ...Args>
-inline void LogCoreTrace(const char* format, Args...args) {
-	Spu::Logger::GetCoreLogger()->trace(format, std::forward<Args>(args)...);
-}
+#define SU_CORE_TRACE(...) ::Spu::Logger::GetCoreLogger()->trace(__VA_ARGS__) 
+#define SU_CORE_INFO(...) ::Spu::Logger::GetCoreLogger()->info(__VA_ARGS__) 
+#define SU_CORE_WARN(...) ::Spu::Logger::GetCoreLogger()->warn(__VA_ARGS__) 
+#define SU_CORE_ERROR(...) ::Spu::Logger::GetCoreLogger()->error(__VA_ARGS__) 
+#define SU_CORE_FATAL(...) ::Spu::Logger::GetCoreLogger()->fatal(__VA_ARGS__)
 
-template<typename ...Args>
-inline void LogCoreInfo(const char* format, Args...args) {
-	Spu::Logger::GetCoreLogger()->info(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogCoreWarn(const char* format, Args...args) {
-	Spu::Logger::GetCoreLogger()->warn(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogCoreError(const char* format, Args...args) {
-	Spu::Logger::GetCoreLogger()->error(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogCoreFatal(const char* format, Args...args) {
-	Spu::Logger::GetCoreLogger()->fatal(format, std::forward<Args>(args)...);
-}
-
-// For clients
-template<typename ...Args>
-inline void LogTrace(const char* format, Args...args) {
-	Spu::Logger::GetClientLogger()->trace(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogInfo(const char* format, Args...args) {
-	Spu::Logger::GetClientLogger()->info(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogWarn(const char* format, Args...args) {
-	Spu::Logger::GetClientLogger()->warn(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogError(const char* format, Args...args) {
-	Spu::Logger::GetClientLogger()->error(format, std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-inline void LogFatal(const char* format, Args...args) {
-	Spu::Logger::GetClientLogger()->fatal(format, std::forward<Args>(args)...);
-}
+#define SU_TRACE(...) ::Spu::Logger::GetClientLogger()->trace(__VA_ARGS__) 
+#define SU_INFO(...) ::Spu::Logger::GetClientLogger()->info(__VA_ARGS__) 
+#define SU_WARN(...) ::Spu::Logger::GetClientLogger()->warn(__VA_ARGS__) 
+#define SU_ERROR(...) ::Spu::Logger::GetClientLogger()->error(__VA_ARGS__) 
+#define SU_FATAL(...) ::Spu::Logger::GetClientLogger()->fatal(__VA_ARGS__) 

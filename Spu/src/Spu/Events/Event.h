@@ -25,7 +25,7 @@ namespace Spu {
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
 								virtual const char* GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const noexcept override { return category; }
 
 	class SPU_API Event {
 
@@ -33,11 +33,11 @@ namespace Spu {
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
-		virtual std::string ToString() const { 
+		virtual std::string ToString() const noexcept { 
 			return GetName(); 
 		};
 
-		bool IsInCategory(EventCategory category) const {
+		bool IsInCategory(EventCategory category) const noexcept {
 			return GetCategoryFlags() & category;
 		}
 

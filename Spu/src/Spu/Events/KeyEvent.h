@@ -12,7 +12,7 @@ namespace Spu {
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
-		KeyEvent(int keycode)
+		KeyEvent(int keycode) noexcept
 			: mKeyCode(keycode) {}
 
 		int mKeyCode;
@@ -20,14 +20,14 @@ namespace Spu {
 
 	class SPU_API KeyPressedEvent : public KeyEvent {
 	public:
-		KeyPressedEvent(int keycode, int repeatCount) 
+		KeyPressedEvent(int keycode, int repeatCount) noexcept
 			: KeyEvent(keycode), mRepeatCount(repeatCount) {}
 
 		int GetRepeatCount() const {
 			return mRepeatCount;
 		}
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "KeyPressedEvent: " << mKeyCode << "(" << mRepeatCount << " repeats)";
 			return ss.str();
@@ -41,10 +41,10 @@ namespace Spu {
 
 	class SPU_API KeyReleasedEvent : public KeyEvent {
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(int keycode) noexcept
 			: KeyEvent(keycode) {}
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "KeyReleasedEvent: " << mKeyCode;
 			return ss.str();
@@ -55,10 +55,10 @@ namespace Spu {
 
 	class SPU_API KeyTypedEvent : public KeyEvent {
 	public:
-		KeyTypedEvent(int keycode)
+		KeyTypedEvent(int keycode) noexcept
 			: KeyEvent(keycode) {}
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "KeyTypedEvent: " << mKeyCode;
 			return ss.str();

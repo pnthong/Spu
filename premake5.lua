@@ -30,10 +30,10 @@ group ""
 
 project "Spu"
     location "Spu"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
     cppdialect "C++17"
-    staticruntime "Off"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "_%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "_%{prj.name}")
@@ -49,7 +49,12 @@ project "Spu"
         "%{prj.name}/external/glm/glm/**.inl"
     }
 
-    includedirs
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+    
+	includedirs
     {
 		"%{prj.name}/src",
         "%{prj.name}/external/spdlog/include",
@@ -68,7 +73,6 @@ project "Spu"
     }
 
     filter "system:windows" 
-		cppdialect "C++17"
         systemversion "latest"
 
         defines {
@@ -96,6 +100,8 @@ project "SandBox"
     location "SandBox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "_%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "_%{prj.name}")
@@ -119,8 +125,6 @@ project "SandBox"
     }
 
     filter "system:windows" 
-        cppdialect "C++17"
-        staticruntime "Off"
         systemversion "latest"
 
         defines {

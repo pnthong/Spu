@@ -23,12 +23,12 @@ namespace Spu {
 
 		virtual void OnUpdate() = 0;
 
-		virtual uint GetWidth() const = 0;
-		virtual uint GetHeight() const = 0;
+		virtual uint GetWidth() const noexcept = 0;
+		virtual uint GetHeight() const noexcept = 0;
 
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
-		virtual bool IsVSync() const = 0;
+		virtual bool IsVSync() const noexcept = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 

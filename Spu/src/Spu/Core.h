@@ -1,10 +1,14 @@
 #pragma once
 
 #ifdef SPU_PLATFORM_WINDOWS
-	#ifdef BUILD_DLL
-		#define SPU_API __declspec(dllexport)
+	#if SU_DYNAMIC_LINK
+		#ifdef BUILD_DLL
+			#define SPU_API __declspec(dllexport)
+		#else
+			#define SPU_API __declspec(dllimport)
+		#endif
 	#else
-		#define SPU_API __declspec(dllimport)
+		#define SPU_API
 	#endif
 #else
 	#error Spu only support Windows!

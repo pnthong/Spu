@@ -5,13 +5,13 @@
 namespace Spu {
 	class SPU_API MouseMovedEvent : public Event {
 	public:
-		MouseMovedEvent(float x, float y)
+		MouseMovedEvent(float x, float y) noexcept
 			: mMouseX(x), mMouseY(y) {}
 
-		float GetX() const { return mMouseX; }
-		float GetY() const { return mMouseY; }
+		float GetX() const noexcept { return mMouseX; }
+		float GetY() const noexcept { return mMouseY; }
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "MouseMovedEvent: " << mMouseX << ", " << mMouseY;
 			return ss.str();
@@ -20,18 +20,18 @@ namespace Spu {
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		int mMouseX, mMouseY;
+		float mMouseX, mMouseY;
 	};
 
 	class SPU_API MouseScrolledEvent : public Event {
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
+		MouseScrolledEvent(float xOffset, float yOffset) noexcept
 			: mXOffset(yOffset), mYOffset(yOffset) {}
 
-		float GetXOffset() const { return mXOffset; }
-		float GetYOffset() const { return mYOffset; }
+		float GetXOffset() const noexcept { return mXOffset; }
+		float GetYOffset() const noexcept { return mYOffset; }
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "MouseScrolledEvent: " << mXOffset << ", " << mYOffset;
 			return ss.str();
@@ -40,16 +40,16 @@ namespace Spu {
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		int mXOffset, mYOffset;
+		float mXOffset, mYOffset;
 	};
 
 	class SPU_API MouseButtonEvent : public Event {
 	public:
-		int GetMouseButton() const { return mButton; }
+		int GetMouseButton() const noexcept { return mButton; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:
-		MouseButtonEvent(int btn) 
+		MouseButtonEvent(int btn) noexcept
 			: mButton(btn) {}
 		
 		int mButton;
@@ -57,10 +57,10 @@ namespace Spu {
 
 	class SPU_API MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonPressedEvent(int btn)
+		MouseButtonPressedEvent(int btn) noexcept
 			:MouseButtonEvent(btn) {}
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "MouseButtonPressedEvent: " << mButton;
 			return ss.str();
@@ -71,10 +71,10 @@ namespace Spu {
 
 	class SPU_API MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonReleasedEvent(int btn)
+		MouseButtonReleasedEvent(int btn) noexcept
 			:MouseButtonEvent(btn) {}
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "MouseButtonReleasedEvent: " << mButton;
 			return ss.str();

@@ -3,7 +3,7 @@
 
 namespace Spu {
 	Layer::Layer(const std::string& name)
-		:mDebugName(name) {}
+		: mDebugName(name) {}
 
 	Layer::~Layer() {}
 }

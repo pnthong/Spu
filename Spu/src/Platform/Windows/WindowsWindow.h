@@ -2,6 +2,8 @@
 #include "Spu/Window.h"
 #include <GLFW/glfw3.h>
 
+#include "Spu/Renderer/GraphicsContext.h"
+
 namespace Spu {
 	class WindowsWindow : public Window {
 	public:
@@ -9,8 +11,8 @@ namespace Spu {
 		virtual ~WindowsWindow();
 
 		void OnUpdate() override;
-		uint GetWidth() const override { return mData.Width; }
-		uint GetHeight() const override { return mData.Height; }
+		uint GetWidth() const noexcept override { return mData.Width; }
+		uint GetHeight() const noexcept override { return mData.Height; }
 
 		// Set "callback" func that gets an event as input
 		// so every time we receivce an event from the GLFW this callback will handle it
@@ -19,7 +21,7 @@ namespace Spu {
 		};
 
 		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
+		bool IsVSync() const noexcept override { return mData.VSync; }
 		
 		void* GetNativeWindow() const override { return mWindow; }
 
@@ -31,6 +33,7 @@ namespace Spu {
 
 	private:
 		GLFWwindow* mWindow;
+		GraphicsContext* mGraphicsContext;
 
 		struct WindowData {
 			std::string Title;

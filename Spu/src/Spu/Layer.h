@@ -14,7 +14,7 @@ namespace Spu {
 		virtual void OnImGuiRender() {};
 		virtual void OnEvent(Event& e) {}
 
-		const std::string& GetName() const { return mDebugName; }
+		const std::string& GetName() const noexcept { return mDebugName; }
 
 	protected:
 		std::string mDebugName;

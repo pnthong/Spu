@@ -5,18 +5,18 @@
 namespace Spu {
 	class SPU_API WindowResizeEvent : public Event {
 	public:
-		WindowResizeEvent(uint width, uint height)
+		WindowResizeEvent(uint width, uint height) noexcept
 			: mWidth(width), mHeight(height) {};
 
-		uint GetWidth() const {
+		uint GetWidth() const noexcept {
 			return mWidth;
 		}
 
-		uint GetHeight() const {
+		uint GetHeight() const noexcept {
 			return mHeight;
 		}
 
-		std::string ToString() const override {
+		std::string ToString() const noexcept override {
 			std::stringstream ss;
 			ss << "WindowResizedEvent: " << mWidth << ", " << mHeight;
 			return ss.str();

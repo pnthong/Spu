@@ -8,7 +8,7 @@
 namespace Spu {
 	class SPU_API ImGuiLayer : public Layer {
 	public:
-		ImGuiLayer();
+		ImGuiLayer() noexcept;
 		~ImGuiLayer();
 
 		virtual void OnAttach() override;

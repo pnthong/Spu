@@ -1,17 +1,15 @@
 #include "supch.h"
 #include "WindowsWindow.h"
 
-#include "Spu/Logger.h"
-
 #include "Spu/Events/ApplicationEvent.h"
 #include "Spu/Events/KeyEvent.h"
 #include "Spu/Events/MouseEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Spu {
 	// In case of we have many windows so we need a static variable here
-	static bool s_GLFWInitialized = false;
+	static bool sGLFWInitialized = false;
 
 	static void GLFWErrorCallback(int error, const char* description) {
 		SU_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
@@ -34,22 +32,23 @@ namespace Spu {
 		mData.Title = props.Title;
 		mData.Width = props.Width;
 		mData.Height = props.Height;
-
+		
 		SU_CORE_INFO("Creating Window {0} ({1}, {2}) ", props.Title, props.Width, props.Height);
 
-		if (!s_GLFWInitialized) {
+		if (!sGLFWInitialized) {
 			int success = glfwInit();
 			SPU_ASSERT(success, "Cannot initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
+			sGLFWInitialized = true;
 		}
 
 		mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(mWindow);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		SPU_CORE_ASSERT(status, "Failed to initialize Glad!");
-
+		// Generate a rendering context
+		// TO DO: extend to DirectX
+		mGraphicsContext = new OpenGLContext(mWindow);
+		mGraphicsContext->Init();
+		
 		glfwSetWindowUserPointer(mWindow, &mData);
 		SetVSync(true);
 
@@ -142,8 +141,6 @@ namespace Spu {
 		});
 	}
 
-	
-
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(mWindow);
@@ -152,7 +149,7 @@ namespace Spu {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(mWindow);
+		mGraphicsContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -163,10 +160,5 @@ namespace Spu {
 			glfwSwapInterval(0);
 
 		mData.VSync = enabled;
-	}
-
-	bool WindowsWindow::IsVSync() const
-	{
-		return mData.VSync;
 	}
 }

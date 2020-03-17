@@ -1,8 +1,6 @@
 #include "supch.h"
 #include "LayerStack.h"
 
-#include "Logger.h"
-
 namespace Spu {
 	LayerStack::~LayerStack()
 	{

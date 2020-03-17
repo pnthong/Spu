@@ -5,6 +5,9 @@
 #include "Spu/LayerStack.h"
 #include "Spu/Events/ApplicationEvent.h"
 
+#include "Spu/Renderer/Buffer.h"
+#include "Spu/Renderer/Shader.h"
+
 #include "Spu/ImGui/ImGuiLayer.h"
 
 namespace Spu {
@@ -29,6 +32,11 @@ namespace Spu {
 
 	private:
 		static Application* sInstance;
+
+		uint mVAO;
+		std::unique_ptr<Shader> mShader;
+		std::unique_ptr<VertexBuffer> mVB;
+		std::unique_ptr<IndexBuffer> mIB;
 
 		ImGuiLayer* mImGuiLayer;
 		std::unique_ptr<Window> mWindow;
